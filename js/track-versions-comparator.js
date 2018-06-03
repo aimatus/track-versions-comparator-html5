@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
-var tvcMusic = document.getElementById('tvc-music'); // id for audio element
+var tvcMusic = document.getElementById('tvc-music');
+var tvcMusic2 = document.getElementById('tvc-music2'); // id for audio element
 var originalTrackUrl = document.getElementById('tvc-track-version-1').textContent;
 var remasteredTrackUrl = document.getElementById('tvc-track-version-2').textContent;
 var duration; // Duration of audio clip
@@ -22,12 +23,15 @@ remasteredVersionButton.addEventListener("click", playRemasteredVersion);
 
 // timeupdate event listener
 tvcMusic.setAttribute('src', originalTrackUrl);
+tvcMusic2.setAttribute('src', remasteredTrackUrl);
+tvcMusic2.muted = true;
 tvcMusic.addEventListener("timeupdate", timeUpdate, false);
 
 // makes timeline clickable
 timeline.addEventListener("click", function(event) {
     moveplayhead(event);
     tvcMusic.currentTime = duration * clickPercent(event);
+    tvcMusic2.currentTime = duration * clickPercent(event);
 }, false);
 
 // returns click as decimal (.77) of the total timelineWidth
@@ -58,6 +62,7 @@ function mouseUp(event) {
         window.removeEventListener('mousemove', moveplayhead, true);
         // change current time
         tvcMusic.currentTime = duration * clickPercent(event);
+        tvcMusic2.currentTime = duration * clickPercent(event);
         tvcMusic.addEventListener('timeupdate', timeUpdate, false);
     }
     onplayhead = false;
@@ -89,17 +94,20 @@ function timeUpdate() {
     }
 }
 
+var currentPlaying = 'original';
 //Play and Pause
 function play() {
     // start tvcMusic
     if (tvcMusic.paused) {
         tvcMusic.play();
+        tvcMusic2.play();
         // remove play, add pause
         playButton.className = "";
         playButton.className = "pause";
         isPlaying = true;
     } else { // pause tvcMusic
         tvcMusic.pause();
+        tvcMusic2.pause();
         // remove pause, add play
         playButton.className = "";
         playButton.className = "play";
@@ -108,11 +116,15 @@ function play() {
 }
 
 function playOriginalVersion() {
-    playTrackVersion(originalTrackUrl);
+    //playTrackVersion(originalTrackUrl);
+    tvcMusic2.muted = true;
+    tvcMusic.muted = false;
 }
 
 function playRemasteredVersion() {
-    playTrackVersion(remasteredTrackUrl);
+    //playTrackVersion(remasteredTrackUrl);
+    tvcMusic2.muted = false;
+    tvcMusic.muted = true;
 }
 
 function playTrackVersion(trackVersionUrl) {
