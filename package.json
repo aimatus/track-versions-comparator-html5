@@ -1,0 +1,36 @@
+{
+  "name": "track-versions-comparator-html5",
+  "version": "1.0.0",
+  "description": " Custom HTML5 only audio interface that allows to switch between track versions and compare them on the fly. ",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "engines": {
+    "node": "8.9.1"
+  },
+  "dependencies": {
+    "ejs": "^2.5.6",
+    "express": "^4.15.2"
+  },
+  "devDependencies": {
+    "request": "^2.81.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aimatus/track-versions-comparator-html5.git"
+  },
+  "keywords": [
+    "html5",
+    "audio",
+    "javascript"
+  ],
+  "author": "Abraham Matus",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aimatus/track-versions-comparator-html5/issues"
+  },
+  "homepage": "https://github.com/aimatus/track-versions-comparator-html5#readme"
+}
