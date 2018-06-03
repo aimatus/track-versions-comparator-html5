@@ -5,7 +5,7 @@
 	top:0; right:0; bottom:0; left:0;
 }
 /*Container for audio player*/
-#audioplayer{
+#tvc-audioplayer{
 	width: 480px;
 	height: 60px;
 	margin: auto;
@@ -13,7 +13,7 @@
 	border: solid;
 }
 /* Play/Pause Button */
-#pButton{
+#tvc-play-button{
 	height:60px;
 	width: 60px;
 	border: none;
@@ -28,7 +28,7 @@
 .play{background: url('../img/play.png') ;}
 .pause{background: url('../img/pause.png') ;}
 
-#timeline{
+#tvc-timeline{
 	width: 382px;
 	height: 20px;
 	background: rgba(0,0,0,.3);
@@ -37,7 +37,7 @@
 	border-radius: 15px;
 }
 /*Grabable Playhead*/
-#playhead{
+#tvc-playhead{
 	cursor: pointer;
 	width: 18px;
 	height: 18px;

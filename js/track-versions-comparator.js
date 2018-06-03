@@ -1,27 +1,27 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
-var music = document.getElementById('music'); // id for audio element
-var trackVersion1 = document.getElementById('track-version-1');
-var trackVersion2 = document.getElementById('track-version-2');
+var tvcMusic = document.getElementById('tvc-music'); // id for audio element
+var trackVersion1 = document.getElementById('tvc-track-version-1');
+var trackVersion2 = document.getElementById('tvc-track-version-2');
 var duration; // Duration of audio clip
-var pButton = document.getElementById('pButton'); // play button
-var playhead = document.getElementById('playhead'); // playhead
-var timeline = document.getElementById('timeline'); // timeline
+var playButton = document.getElementById('tvc-play-button'); // play button
+var playhead = document.getElementById('tvc-playhead'); // playhead
+var timeline = document.getElementById('tvc-timeline'); // timeline
 
 // timeline width adjusted for playhead
 var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
 
 // play button event listenter
-pButton.addEventListener("click", play);
+playButton.addEventListener("click", play);
 
 // timeupdate event listener
-music.setAttribute('src', trackVersion1.textContent);
-music.addEventListener("timeupdate", timeUpdate, false);
+tvcMusic.setAttribute('src', trackVersion1.textContent);
+tvcMusic.addEventListener("timeupdate", timeUpdate, false);
 
 // makes timeline clickable
 timeline.addEventListener("click", function(event) {
     moveplayhead(event);
-    music.currentTime = duration * clickPercent(event);
+    tvcMusic.currentTime = duration * clickPercent(event);
 }, false);
 
 // returns click as decimal (.77) of the total timelineWidth
@@ -41,7 +41,7 @@ var onplayhead = false;
 function mouseDown() {
     onplayhead = true;
     window.addEventListener('mousemove', moveplayhead, true);
-    music.removeEventListener('timeupdate', timeUpdate, false);
+    tvcMusic.removeEventListener('timeupdate', timeUpdate, false);
 }
 
 // mouseUp EventListener
@@ -51,8 +51,8 @@ function mouseUp(event) {
         moveplayhead(event);
         window.removeEventListener('mousemove', moveplayhead, true);
         // change current time
-        music.currentTime = duration * clickPercent(event);
-        music.addEventListener('timeupdate', timeUpdate, false);
+        tvcMusic.currentTime = duration * clickPercent(event);
+        tvcMusic.addEventListener('timeupdate', timeUpdate, false);
     }
     onplayhead = false;
 }
@@ -75,33 +75,33 @@ function moveplayhead(event) {
 // timeUpdate
 // Synchronizes playhead position with current point in audio
 function timeUpdate() {
-    var playPercent = timelineWidth * (music.currentTime / duration);
+    var playPercent = timelineWidth * (tvcMusic.currentTime / duration);
     playhead.style.marginLeft = playPercent + "px";
-    if (music.currentTime == duration) {
-        pButton.className = "";
-        pButton.className = "play";
+    if (tvcMusic.currentTime == duration) {
+        playButton.className = "";
+        playButton.className = "play";
     }
 }
 
 //Play and Pause
 function play() {
-    // start music
-    if (music.paused) {
-        music.play();
+    // start tvcMusic
+    if (tvcMusic.paused) {
+        tvcMusic.play();
         // remove play, add pause
-        pButton.className = "";
-        pButton.className = "pause";
-    } else { // pause music
-        music.pause();
+        playButton.className = "";
+        playButton.className = "pause";
+    } else { // pause tvcMusic
+        tvcMusic.pause();
         // remove pause, add play
-        pButton.className = "";
-        pButton.className = "play";
+        playButton.className = "";
+        playButton.className = "play";
     }
 }
 
 // Gets audio file duration
-music.addEventListener("canplaythrough", function() {
-    duration = music.duration;
+tvcMusic.addEventListener("canplaythrough", function() {
+    duration = tvcMusic.duration;
 }, false);
 
 // getPosition
