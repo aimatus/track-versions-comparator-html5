@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
 var music = document.getElementById('music'); // id for audio element
+var trackVersion1 = document.getElementById('track-version-1');
+var trackVersion2 = document.getElementById('track-version-2');
 var duration; // Duration of audio clip
 var pButton = document.getElementById('pButton'); // play button
 var playhead = document.getElementById('playhead'); // playhead
@@ -13,6 +15,7 @@ var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
 pButton.addEventListener("click", play);
 
 // timeupdate event listener
+music.setAttribute('src', trackVersion1.textContent);
 music.addEventListener("timeupdate", timeUpdate, false);
 
 // makes timeline clickable
