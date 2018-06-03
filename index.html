@@ -10,14 +10,14 @@
 
 <body>
 	<!--HTML5 audio-->
-	<audio id="tvc-original-track" preload="true">
+	<audio id="tvc-original-track" preload="auto">
+		<source src="music/interlude-lq.mp3">
 	</audio>
-	<audio id="tvc-remastered-track" preload="true">
+	<audio id="tvc-remastered-track" preload="auto">
+		<source src="music/interlude-hq.mp3">
 	</audio>
 
 	<div id="tvc-wrapper">
-		<label id="tvc-track-version-1" hidden>music/interlude-lq.mp3</label>
-		<label id="tvc-track-version-2" hidden>music/interlude-hq.mp3</label>
 		<!--Audio Player Interface-->
 		<div id="tvc-audioplayer">
 			<button id="tvc-play-button" class="play"></button>

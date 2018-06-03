@@ -2,9 +2,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 var originalTrack = document.getElementById('tvc-original-track');
 var remasteredTrack = document.getElementById('tvc-remastered-track');
-var originalTrackUrl = document.getElementById('tvc-track-version-1').textContent;
-var remasteredTrackUrl = document.getElementById('tvc-track-version-2').textContent;
-var duration; 
 var playButton = document.getElementById('tvc-play-button'); 
 var playhead = document.getElementById('tvc-playhead'); 
 var timeline = document.getElementById('tvc-timeline'); 
@@ -19,15 +16,13 @@ playButton.addEventListener("click", play);
 originalVersionButton.addEventListener("click", playOriginalVersion);
 remasteredVersionButton.addEventListener("click", playRemasteredVersion);
 
-originalTrack.setAttribute('src', originalTrackUrl);
-remasteredTrack.setAttribute('src', remasteredTrackUrl);
 remasteredTrack.muted = true;
 originalTrack.addEventListener("timeupdate", timeUpdate, false);
 
 timeline.addEventListener("click", function(event) {
     moveplayhead(event);
-    originalTrack.currentTime = duration * clickPercent(event);
-    remasteredTrack.currentTime = duration * clickPercent(event);
+    originalTrack.currentTime = originalTrack.duration * clickPercent(event);
+    remasteredTrack.currentTime = originalTrack.duration * clickPercent(event);
 }, false);
 
 function clickPercent(event) {
@@ -47,8 +42,8 @@ function mouseUp(event) {
     if (onplayhead == true) {
         moveplayhead(event);
         window.removeEventListener('mousemove', moveplayhead, true);
-        originalTrack.currentTime = duration * clickPercent(event);
-        remasteredTrack.currentTime = duration * clickPercent(event);
+        originalTrack.currentTime = originalTrack.duration * clickPercent(event);
+        remasteredTrack.currentTime = originalTrack.duration * clickPercent(event);
         originalTrack.addEventListener('timeupdate', timeUpdate, false);
     }
     onplayhead = false;
@@ -69,9 +64,9 @@ function moveplayhead(event) {
 }
 
 function timeUpdate() {
-    var playPercent = timelineWidth * (originalTrack.currentTime / duration);
+    var playPercent = timelineWidth * (originalTrack.currentTime / originalTrack.duration);
     playhead.style.marginLeft = playPercent + "px";
-    if (originalTrack.currentTime == duration) {
+    if (originalTrack.currentTime == originalTrack.duration) {
         playButton.className = "";
         playButton.className = "play";
     }
@@ -100,10 +95,6 @@ function playRemasteredVersion() {
     remasteredTrack.muted = false;
     originalTrack.muted = true;
 }
-
-originalTrack.addEventListener("canplaythrough", function() {
-    duration = originalTrack.duration;
-}, false);
 
 function getPosition(el) {
     return el.getBoundingClientRect().left;
