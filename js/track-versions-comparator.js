@@ -1,21 +1,27 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
 var tvcMusic = document.getElementById('tvc-music'); // id for audio element
-var trackVersion1 = document.getElementById('tvc-track-version-1');
-var trackVersion2 = document.getElementById('tvc-track-version-2');
+var originalTrackUrl = document.getElementById('tvc-track-version-1').textContent;
+var remasteredTrackUrl = document.getElementById('tvc-track-version-2').textContent;
 var duration; // Duration of audio clip
 var playButton = document.getElementById('tvc-play-button'); // play button
 var playhead = document.getElementById('tvc-playhead'); // playhead
 var timeline = document.getElementById('tvc-timeline'); // timeline
+var originalVersionButton = document.getElementById('tvc-original-version-button');
+var remasteredVersionButton = document.getElementById('tvc-remastered-version-button');
+var currentTime = 0;
+var isPlaying = false;
 
 // timeline width adjusted for playhead
 var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
 
 // play button event listenter
 playButton.addEventListener("click", play);
+originalVersionButton.addEventListener("click", playOriginalVersion);
+remasteredVersionButton.addEventListener("click", playRemasteredVersion);
 
 // timeupdate event listener
-tvcMusic.setAttribute('src', trackVersion1.textContent);
+tvcMusic.setAttribute('src', originalTrackUrl);
 tvcMusic.addEventListener("timeupdate", timeUpdate, false);
 
 // makes timeline clickable
@@ -91,12 +97,33 @@ function play() {
         // remove play, add pause
         playButton.className = "";
         playButton.className = "pause";
+        isPlaying = true;
     } else { // pause tvcMusic
         tvcMusic.pause();
         // remove pause, add play
         playButton.className = "";
         playButton.className = "play";
+        isPlaying = false;
     }
+}
+
+function playOriginalVersion() {
+    playTrackVersion(originalTrackUrl);
+}
+
+function playRemasteredVersion() {
+    playTrackVersion(remasteredTrackUrl);
+}
+
+function playTrackVersion(trackVersionUrl) {
+    tvcMusic.pause();
+    currentTime = tvcMusic.currentTime;
+    tvcMusic.setAttribute('src', trackVersionUrl);
+    tvcMusic.load();
+    if (isPlaying) {
+        tvcMusic.play();
+    }
+    tvcMusic.currentTime = currentTime;
 }
 
 // Gets audio file duration
