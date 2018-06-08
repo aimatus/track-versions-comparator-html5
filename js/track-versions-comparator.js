@@ -120,8 +120,26 @@ function getPosition(el) {
 
 function setTrack(element, trackNumber) {
     clearSelected();
+    addSelectedClass(element);
+    setNewTrack(trackNumber);
+}
+
+function clearSelected() {
+    var elements = document.getElementsByClassName("selected");
+    if (elements.length === 0) {
+        return;
+    }
+    for (i = 0; i < elements.length; i++) {
+        elements[i].className = "";
+    }
+}
+
+function addSelectedClass(element) {
     element.className = "";
     element.className = "selected";
+}
+
+function setNewTrack(trackNumber) {
     originalTrack.setAttribute("src", tracks[trackNumber].unmastered);
     originalTrack.load();
     remasteredTrack.setAttribute("src", tracks[trackNumber].mastered);
@@ -132,13 +150,3 @@ function setTrack(element, trackNumber) {
     originalTrack.muted = false;
 }
 
-function clearSelected() {
-    var elements = document.getElementsByClassName("selected");
-    console.log(elements);
-    if (elements.length === 0) {
-        return;
-    }
-    for (i = 0; i < elements.length; i++) {
-        elements[i].className = "";
-    } 
-}
