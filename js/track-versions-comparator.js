@@ -1,13 +1,29 @@
+var tracks = [
+    {
+        unmastered: "music/interlude-lq.mp3",
+        mastered: "music/interlude-hq.mp3"
+    },
+    {
+        unmastered: "music/bensound-endlessmotion-lq.mp3",
+        mastered: "music/bensound-endlessmotion-hq.mp3"
+    }
+];
+
+var originalUrl;
+var masteredUrl;
+var originalTrack;
+var remasteredTrack
+var playButton
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
-var originalTrack = document.getElementById('tvc-original-track');
-var remasteredTrack = document.getElementById('tvc-remastered-track');
-var playButton = document.getElementById('tvc-play-button'); 
+originalTrack = document.getElementById('tvc-original-track');
+remasteredTrack = document.getElementById('tvc-remastered-track');
+playButton = document.getElementById('tvc-play-button'); 
 var playhead = document.getElementById('tvc-playhead'); 
 var timeline = document.getElementById('tvc-timeline'); 
 var originalVersionButton = document.getElementById('tvc-original-version-button');
 var remasteredVersionButton = document.getElementById('tvc-remastered-version-button');
-var currentTime = 0;
 var onplayhead = false;
 
 var timelineWidth = timeline.offsetWidth - playhead.offsetWidth;
@@ -101,3 +117,28 @@ function getPosition(el) {
 }
 
 });
+
+function setTrack(element, trackNumber) {
+    clearSelected();
+    element.className = "";
+    element.className = "selected";
+    originalTrack.setAttribute("src", tracks[trackNumber].unmastered);
+    originalTrack.load();
+    remasteredTrack.setAttribute("src", tracks[trackNumber].mastered);
+    remasteredTrack.load();
+    playButton.className = "";
+    playButton.className = "play";
+    remasteredTrack.muted = true;
+    originalTrack.muted = false;
+}
+
+function clearSelected() {
+    var elements = document.getElementsByClassName("selected");
+    console.log(elements);
+    if (elements.length === 0) {
+        return;
+    }
+    for (i = 0; i < elements.length; i++) {
+        elements[i].className = "";
+    } 
+}

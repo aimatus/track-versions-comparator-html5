@@ -58,3 +58,24 @@
     margin: 4px 2px;
     cursor: pointer;
 }
+
+#songs {
+	max-width: 600px;
+	margin: 0 auto;
+	font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+
+#songs p {
+	padding: 8px;
+	background: silver;
+}
+
+#songs p:hover {
+	background: #4CAF50;
+	color: white;
+}
+
+#songs .selected {
+	background: seagreen;
+	color: white;
+}
