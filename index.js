@@ -6,7 +6,3 @@ var app = express();
 
 app.use(express.static(__dirname + '/')); 
 app.listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-//express()
- // .get('/', (req, res) => res.static(path.join(__dirname + '/audio.html')))
-  //.listen(PORT, () => console.log(`Listening on ${ PORT }`));
